@@ -9,3 +9,5 @@
 [Day 04](https://adventofcode.com/2021/day/4)
 
 [Day 05](https://adventofcode.com/2021/day/5)
+
+[Day 06](https://adventofcode.com/2021/day/6)
