@@ -15,3 +15,5 @@
 [Day 07](https://adventofcode.com/2021/day/7)
 
 [Day 08](https://adventofcode.com/2021/day/8)
+
+[Day 09](https://adventofcode.com/2021/day/9)
