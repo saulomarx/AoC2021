@@ -9,15 +9,15 @@ func Ex02(raw []string) {
 	insert, instruction := GetInsertAndInstructions(raw)
 	instructionMap, instructionCountMap := GetInstructionMapAndCount(instruction)
 
-	initialCount(insert, instructionCountMap)
 	in := insert
 	fmt.Println("Rec aqui-------")
 	for i := 0; i < 40; i++ {
 		fmt.Printf("------- Cycle %v\n", i+1)
-		in = recPoly(in, instructionMap, instructionCountMap)
+		in = memoryRec(in, instructionMap)
 	}
+	fmt.Println(fmt.Println("Rec fim-------"))
 
-	fmt.Println(len(in))
+	//initialCount(in, instructionCountMap)
 	max, min := GetMaxMinFromCount(instructionCountMap)
 
 	fmt.Printf("\nMax %v - Min %v = %v\n", max, min, max-min)
@@ -41,6 +41,14 @@ func singlePolymerization(input string, instructionMap map[string]string, count 
 	return string(input[0]) + e
 }
 
+func sPolymerization(input string, instructionMap map[string]string) string {
+	if len(input) < 2 {
+		fmt.Println("DEU RUIM")
+	}
+	e := instructionMap[input]
+	return string(input[0]) + e
+}
+
 func recPoly(input string, instructionMap map[string]string, count map[string]int) string {
 	inputLen := len(input)
 
@@ -57,5 +65,33 @@ func recPoly(input string, instructionMap map[string]string, count map[string]in
 	e := instructionMap[middle]
 	count[e]++
 	return recPoly(input[:halfLen], instructionMap, count) + e + recPoly(input[halfLen:], instructionMap, count)
+}
+
+func memoryRec(input string, instructions map[string]string) string {
+	if value, ok := instructions[input]; ok && len(input) > 2 {
+		return value
+	}
+
+	inputLen := len(input)
+
+	if inputLen == 2 {
+		newPolymer := sPolymerization(input, instructions) + string(input[inputLen-1])
+		//instructions[input] = newPolymer
+		return newPolymer
+
+	}
+	if inputLen == 3 {
+		newPolymer := sPolymerization(input[:2], instructions) + sPolymerization(input[1:], instructions) + string(input[inputLen-1])
+		//instructions[input] = newPolymer
+		return newPolymer
+	}
+
+	halfLen := inputLen / 2
+
+	middle := input[halfLen-1 : halfLen+1]
+	e := instructions[middle]
+	newPolymer := memoryRec(input[:halfLen], instructions) + e + memoryRec(input[halfLen:], instructions)
+	instructions[input] = newPolymer
+	return newPolymer
 
 }

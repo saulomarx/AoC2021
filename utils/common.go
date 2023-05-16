@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func readInput(filePath string) []string {
+func ReadInput(filePath string) []string {
 	var input []string
 	file, err := os.Open(filePath)
 	if err != nil {
